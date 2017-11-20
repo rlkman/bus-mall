@@ -1,3 +1,5 @@
+'use strict'
+
 var allProducts = [];
 var productNames = ['boots', 'chair', 'scissors']; // TODO: see the pattern here, and what you need to fill in?
 
@@ -33,7 +35,7 @@ var productRank = {
 
   onClick: function() {
     // TODO: Hmm... what's going to happen here?
-};
+},
 
-productRank.imageEls.addEventListener('click', productRank.onClick);
-productRank.displayImages();
+var productRank.imageEls.addEventListener('click', productRank.onClick);
+var productRank.displayImages();
