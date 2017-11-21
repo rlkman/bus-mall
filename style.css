@@ -1,5 +1,7 @@
-.photos{
+#images{
   display: inline;
+  border-style: solid;
+  border-color: black;
   }
 
 #one{
