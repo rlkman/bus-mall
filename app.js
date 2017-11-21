@@ -2,9 +2,9 @@
 
 var allProducts = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can','wine-glass'];
 var productNames = ['boots', 'chair', 'scissors']; // TODO: see the pattern here, and what you need to fill in?
-var path = '/Users/rlkman/codefellows/201/bus-mall/img/'
+var path = '/Users/rlkman/codefellows/201/bus-mall/img/';
 
-var productObjArray=[];
+var productObjArray = [];
 function Product(name, path) {
   // TODO: Build your constructor and necessary properties.
   this.name = name;
@@ -20,6 +20,14 @@ for(var i = 0; i < allProducts.length; i++) {
 }
 console.log(productObjArray);
 
+//Events Handling
+var imageElts1 = document.getElementById('images');
+
+var imageElts2 = document.getElementById('images');
+
+var imageElts3 = document.getElementById('images');
+
+
 var productRank = function() {
   // TODO: All the properties of the object! What do you think you need? Try to write one piece at a time and make sure it does what you want before writing a little more.
   // NOTE: A-C-P reminder... Make very intentional and iterative changes to your code, and then A-C-P.
@@ -34,38 +42,23 @@ var productRank = function() {
   };
 
   var getRandomImage = function(productObjArray) {
-    console.log('photos should be here: ', path);
+    //console.log('photos should be here: ', path);
     var num = getRandomIndex();
     var rndImg = productObjArray[num].path + productObjArray[num].name + '.jpg';
-    console.log('random image, ', rndImg);
+    //console.log('random image, ', rndImg);
+    productNames.push(productObjArray[num].name);
+    console.log('products in display: ',productNames);
     return rndImg;
   };
 
   var displayImages = function() {
     // TODO: Hmm... what's going to happen here?
+    var images = document.getElementById('images');
     var rndImgPath = getRandomImage(productObjArray);
-    var imgStr = '<img id="images" src=' + rndImgPath + ' alt = "Randomn">';
-    console.log('<img src=' + rndImgPath + ' alt = "Randomn">');
-    // create a new div element
-    // and give it some content
+    console.log('<img src=' + rndImgPath + ' alt="Randomn">');
     var myImage = new Image(200, 200);
     myImage.src = rndImgPath;
-    document.body.appendChild(myImage);
-
-    var rndImgPath1 = getRandomImage(productObjArray);
-    var imgStr1 = '<img id="images" src=' + rndImgPath1 + ' alt = "Randomn1">';
-    console.log('<img src=' + rndImgPath1 + ' alt = "Randomn1">');
-    var myImage = new Image(200, 200);
-    myImage.src = rndImgPath1;
-    document.body.appendChild(myImage);
-    //document.write(imgStr1); document.close();
-
-    var rndImgPath2 = getRandomImage(productObjArray);
-    var imgStr2 = '<img id="images" src=' + rndImgPath2 + ' alt = "Randomn2">';
-    console.log('<img src=' + rndImgPath2 + ' alt = "Randomn2">');
-    var myImage = new Image(200, 200);
-    myImage.src = rndImgPath2;
-    document.body.appendChild(myImage);//add the text node to the newly created div.
+    images.appendChild(myImage);
   };
 
   // var tallyClicks = function(elementId) {
@@ -85,26 +78,17 @@ var productRank = function() {
   displayImages();
 };
 
-//Event Handling
-//document.body.onload = addElement;
-// function onSubmit(event){
-//   event.preventDefault();
-//   console.log('event object Name: ', event.target[0].value);
-//   console.log('event object max: ', event.target[1].value);
-//   console.log('event object min: ', event.target[2].value);
-//   console.log('event object avg: ', event.target[3].value);
-//   console.log('the form was submitted');
-//   //Delete last row - the total row --- inner.HTML
-//   var rowCount = document.getElementById('store-tbl').rows.length;
-//   document.getElementById('store-tbl').deleteRow(rowCount - 1);
-//   console.log('number of rows on table:', rowCount);
-//   var newShop = new Store(event.target[0].value, event.target[1].value, event.target[2].value, event.target[3].value);
-//   footerRow();
-//   console.log('New Shop instatiated and done.', newShop);
-// }
-// formEl.addEventListener('submit', onSubmit);
-//var productRank.imageEls.addEventListener('click', productRank.onClick);
+
+//Events Handling
+imageElts1.addEventListener('click', productRank());
+imageElts2.addEventListener('click', productRank());
+
+imageElts3.addEventListener('click', productRank());
+
+
+
+//var imageElts.addEventListener('click', onClick);
 //var productRank.displayImages();
 //};
 
-productRank();
+//productRank();
