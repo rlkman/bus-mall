@@ -5,21 +5,24 @@
   margin: 0;
 }
 
+main div{
+  display: inline-block;
+}
 #images img{
-  display: inline;
+  display: inline-block;
   border-style: solid;
   border-color: black;
   margin: auto;
   }
 
 #images1 img{
-  display: inline;
+  display: inline-block;
   border-style: solid;
   border-color: black;
   margin: auto;
 }
 #images2 img{
-  display: inline;
+  display: inline-block;
   border-style: solid;
   border-color: black;
   margin: auto;
