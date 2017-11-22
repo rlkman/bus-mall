@@ -1,6 +1,29 @@
-#images img{
+#photos{
   display: inline;
   border-style: solid;
+  border-color: red;
+  margin: 0;
+}
+
+main div{
+  display: inline-block;
+}
+#images img{
+  display: inline-block;
+  border-style: solid;
   border-color: black;
-  margin-left: 300;
+  margin: auto;
   }
+
+#images1 img{
+  display: inline-block;
+  border-style: solid;
+  border-color: black;
+  margin: auto;
+}
+#images2 img{
+  display: inline-block;
+  border-style: solid;
+  border-color: black;
+  margin: auto;
+}
