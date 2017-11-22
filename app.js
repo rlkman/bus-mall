@@ -22,17 +22,20 @@ console.log(productObjArray);
 
 //Events Handling
 var imageElts1 = document.getElementById('images');
-
-var imageElts2 = document.getElementById('images');
-
-var imageElts3 = document.getElementById('images');
-
+var imageElts2 = document.getElementById('images1');
+var imageElts3 = document.getElementById('images2');
+var tally = 0;
 
 var productRank = function() {
+  imageElts1.innerHTML = '';
+  imageElts2.innerHTML = '';
+  imageElts3.innerHTML = '';
+
   // TODO: All the properties of the object! What do you think you need? Try to write one piece at a time and make sure it does what you want before writing a little more.
   // NOTE: A-C-P reminder... Make very intentional and iterative changes to your code, and then A-C-P.
+  tally++;
+  console.log('Total Clicks: ', tally);
 
-  console.log('WE are here one...!!!');
 
   var getRandomIndex = function() {
     // TODO: Hmm... what's going to happen here?function
@@ -45,9 +48,18 @@ var productRank = function() {
     //console.log('photos should be here: ', path);
     var num = getRandomIndex();
     var rndImg = productObjArray[num].path + productObjArray[num].name + '.jpg';
-    //console.log('random image, ', rndImg);
+    console.log('random image, ', rndImg);
+    console.log('new prod: ', productObjArray[num].name);
+    for(var j = 0; j < productNames; j++) {
+      if (productObjArray[num].name === productNames[j]) {
+        getRandomImage(productObjArray);
+      } else {
+        productNames.push(productObjArray[num].name);
+        console.log('products in display: ',productNames);
+      }
+    }
     productNames.push(productObjArray[num].name);
-    console.log('products in display: ',productNames);
+    console.log('current array: ', productNames);
     return rndImg;
   };
 
@@ -59,36 +71,45 @@ var productRank = function() {
     var myImage = new Image(200, 200);
     myImage.src = rndImgPath;
     images.appendChild(myImage);
+
+    var images1 = document.getElementById('images1');
+    var rndImgPath1 = getRandomImage(productObjArray);
+    console.log('<img src=' + rndImgPath1 + ' alt="Randomn">');
+    myImage = new Image(200, 200);
+    myImage.src = rndImgPath1;
+    images1.appendChild(myImage);
+
+    var images2 = document.getElementById('images2');
+    var rndImgPath2 = getRandomImage(productObjArray);
+    console.log('<img src=' + rndImgPath2 + ' alt="Randomn">');
+    myImage = new Image(200, 200);
+    myImage.src = rndImgPath2;
+    images2.appendChild(myImage);
+  };
+  productNames = [];
+  displayImages();
+
+
+  // var tallyClicks = function() {
+  //   // TODO: Hmm... what's going to happen here?
+  //   tally = clickCount++;
+  //   console.log('Total Clicks: ', tally)
+  // };
+
+  var displayResults = function() {
+    // TODO: Hmm... what's going to happen here?
   };
 
-  // var tallyClicks = function(elementId) {
-  //   // TODO: Hmm... what's going to happen here?
-  // };
-  //
-  // var displayResults = function() {
-  //   // TODO: Hmm... what's going to happen here?
-  // };
-  //
-  // var showButton = function() {
-  //   // TODO: Hmm... what's going to happen here?
-  // };
-  //
-  // var onClick = function() {
-  //   // TODO: Hmm... what's going to happen here?
-  displayImages();
+  var showButton = function() {
+    // TODO: Hmm... what's going to happen here?
+  };
+
+  var onClick = function() {
+    // TODO: Hmm... what's going to happen here?
+  };
 };
-
-
 //Events Handling
-imageElts1.addEventListener('click', productRank());
-imageElts2.addEventListener('click', productRank());
-
-imageElts3.addEventListener('click', productRank());
-
-
-
-//var imageElts.addEventListener('click', onClick);
-//var productRank.displayImages();
-//};
-
-//productRank();
+imageElts1.addEventListener('click', productRank);
+imageElts2.addEventListener('click', productRank);
+imageElts3.addEventListener('click', productRank);
+productRank();

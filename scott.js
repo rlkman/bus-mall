@@ -1,39 +1,79 @@
-var allProducts = [];
-var productNames = ['boots', 'chair', 'scissors']; // TODO: see the pattern here, and what you need to fill in?
+'use strict';
 
-function Product(name, path) {
-  // TODO: Build your constructor and necessary properties.
+var allProducts = [];
+var productNames = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'tauntaun', 'unicorn', 'water-can', 'wine-glass'];
+
+function Product(name) {
+  this.name = name;
+  this.path = 'assets/' + this.name + '.jpg';
+  this.votes = 0;
+  // this.timesShown = 0;
+  allProducts.push(this);
 }
 
-// TODO: Don't forget to build your objects. How can you do this withough having to write 14 lines of `new Product(., ., .)`?
+(function() {
+  for(var i in productNames) {
+    new Product(productNames[i]);
+  }
+})();
 
-var productRank = {
-  // TODO: All the properties of the object! What do you think you need? Try to write one piece at a time and make sure it does what you want before writing a little more.
-  // NOTE: A-C-P reminder... Make very intentional and iterative changes to your code, and then A-C-P.
+
+var tracker = {
+  imagesEl: document.getElementById('images'),
+  resultsEl: document.getElementById('results'),
+  clickCount: 0,
+
+  imageOne: document.createElement('img'),
+  imageTwo: document.createElement('img'),
+  imageThree: new Image(), // Example to show that the Image constructor can be used
 
   getRandomIndex: function() {
-    // TODO: Hmm... what's going to happen here?
+    return Math.floor(Math.random() * allProducts.length);
   },
 
   displayImages: function() {
-    // TODO: Hmm... what's going to happen here?
+    var idOne = this.getRandomIndex();
+    var idTwo = this.getRandomIndex();
+    var idThree = this.getRandomIndex();
+
+    if(idOne === idTwo || idOne === idThree || idTwo === idThree) {
+      this.displayImages();
+      return;
+    }
+
+    this.imageOne.src = allProducts[idOne].path;
+    this.imageTwo.src = allProducts[idTwo].path;
+    this.imageThree.src = allProducts[idThree].path;
+
+    this.imageOne.id = allProducts[idOne].name;
+    this.imageTwo.id = allProducts[idTwo].name;
+    this.imageThree.id = allProducts[idThree].name;
+
+
+    this.imagesEl.appendChild(this.imageOne);
+    this.imagesEl.appendChild(this.imageTwo);
+    this.imagesEl.appendChild(this.imageThree);
   },
 
-  tallyClicks: function(elementId) {
-    // TODO: Hmm... what's going to happen here?
-  },
+  onClick: function(event) {
+    console.log(event.target.id);
 
-  displayResults: function() {
-    // TODO: Hmm... what's going to happen here?
-  },
+    if(event.target.id === 'images') {
+      console.log('didnt click an image');
+      return;
+    } else {
+      tracker.clickCount++;
 
-  showButton: function() {
-    // TODO: Hmm... what's going to happen here?
-  },
+      for(var i in allProducts) {
+        if(event.target.id === allProducts[i].name) {
+          allProducts[i].votes++;
+        }
+      }
 
-  onClick: function() {
-    // TODO: Hmm... what's going to happen here?
+      tracker.displayImages();
+    }
+  }
 };
 
-productRank.imageEls.addEventListener('click', productRank.onClick);
-productRank.displayImages();
+tracker.imagesEl.addEventListener('click', tracker.onClick);
+tracker.displayImages();
