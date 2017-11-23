@@ -27,3 +27,7 @@ main div{
   border-color: black;
   margin: auto;
 }
+
+#results{
+  columns: 4 auto;
+}
