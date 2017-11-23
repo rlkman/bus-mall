@@ -23,7 +23,10 @@ var productRank = {
   imagesEl: document.getElementById('images'),
   imagesEl1: document.getElementById('images1'),
   imagesEl2: document.getElementById('images2'),
+  resultsEl: document.getElementById('results'),
+  resultsArray: [],
   productNames:[], // TODO: see the pattern here, and what you need to fill in?
+  clickCount: 0,
 
   myImage: new Image(200, 200),
   myImage1: new Image(200, 200),
@@ -34,7 +37,7 @@ var productRank = {
 
   getRandomIndex: function() {
     // TODO: Hmm... what's going to happen here?function
-    console.log('WE are here...!!!');
+    //console.log('WE are here...!!!');
     var num = Math.floor( Math.random() * productObjArray.length );
     return num;
   },
@@ -43,10 +46,11 @@ var productRank = {
     var num = 0;
     do {
       num = this.getRandomIndex();
+      productObjArray[num].numberOfViews++;
       var rndImg = productObjArray[num].path + productObjArray[num].name + '.jpg';
     } while (productRank.productNames.includes(productObjArray[num].name));
     productRank.productNames.push(productObjArray[num].name);
-    console.log('current array: ', productRank.productNames);
+    //console.log('current array: ', productRank.productNames);
     return rndImg;
   },
 
@@ -54,43 +58,62 @@ var productRank = {
     productRank.productNames = [];
     // TODO: Hmm... what's going to happen here?
     var rndImgPath = this.getRandomImage(productObjArray);
-    console.log('<img src=' + rndImgPath + ' alt="Randomn">');
-    this.myImage.src = rndImgPath;
-    this.imagesEl.appendChild(this.myImage);
-
-
     var rndImgPath1 = this.getRandomImage(productObjArray);
-    console.log('<img src=' + rndImgPath1 + ' alt="Randomn">');
-    this.myImage1.src = rndImgPath1;
-    this.imagesEl1.appendChild(this.myImage1);
-
-
     var rndImgPath2 = this.getRandomImage(productObjArray);
-    console.log('<img src=' + rndImgPath2 + ' alt="Randomn">');
+
+    this.myImage.src = rndImgPath;
+    this.myImage1.src = rndImgPath1;
     this.myImage2.src = rndImgPath2;
+
+    this.myImage.id = productRank.productNames[0];
+    this.myImage1.id = productRank.productNames[1];
+    this.myImage2.id = productRank.productNames[2];
+
+    this.imagesEl.appendChild(this.myImage);
+    this.imagesEl1.appendChild(this.myImage1);
     this.imagesEl2.appendChild(this.myImage2);
-  },
-
-  onClick: function(event) {
-    console.log('event.target, ', event.target);
-    console.log('this.imagesEl ', this.imagesEl);
-    // this.imagesEl.innerHTML = '';
-    // this.imagesEl1.innerHTML = '';
-    // this.imagesEl2.innerHTML = '';
-
-    console.log(event.target.id);
-    productRank.clickCount++;
-
-    for(var i in allProducts) {
-      if(event.target.id === allProducts[i].name){
-        allProducts[i].totalCount++;
-      }
-    }
-    productRank.displayImages();
   },
 
   displayResults: function() {
     // TODO: Hmm... what's going to happen here?
+    //generate ul
+    //generate, populate and append il*allProducts
+    //append ul to results tag
+    var newULEl = document.createElement('ul');
+    this.resultsEl.appendChild(newULEl);
+    for (var l = 0; l < allProducts.length; l++) {
+      var liEl = document.createElement('li');
+      liEl.innerHTML = productObjArray[l].totalCount + '   =    ' + productObjArray[l].name + '.';
+      this.resultsArray.push(productObjArray[l].totalCount);
+      newULEl.appendChild(liEl);
+    }
+    console.log('this.resultsArray: ', this.resultsArray);
+    return this.resultsArray;
+  },
+
+
+  onClick: function(event) {
+    event.preventDefault();
+
+    if(productRank.clickCount < 25) {
+      console.log('event target id:', event.target.id);
+      productRank.clickCount++;
+      console.log('productRank.clickCount: ', productRank.clickCount);
+
+      for(var i in allProducts) {
+        if(event.target.id === productObjArray[i].name){
+          productObjArray[i].totalCount++;
+          console.log('productObjArray[i].name: ', productObjArray[i].name);
+          console.log('productObjArray[i].totalCount: ',productObjArray[i].totalCount);
+        }
+      }
+      productRank.displayImages();
+    } else {
+      productRank.imagesEl.removeEventListener('click', productRank.onClick);
+      productRank.imagesEl1.removeEventListener('click', productRank.onClick);
+      productRank.imagesEl2.removeEventListener('click', productRank.onClick);
+      productRank.displayResults();
+    }
   },
 
   showButton: function() {
