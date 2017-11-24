@@ -1,9 +1,11 @@
 'use strict';
 
 var allProducts = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can','wine-glass'];
-var path = '/Users/rlkman/codefellows/201/bus-mall/img/';
-var init = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-localStorage.setItem('resultArray', JSON.stringify(init));
+var path = './img/';
+var init = new Array(20).fill(0); //[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+if(localStorage.getItem('resultArray') === null) {
+  localStorage.setItem('resultArray', JSON.stringify(init));
+}
 
 var productObjArray = [];
 function Product(name, path) {
@@ -117,12 +119,12 @@ var productRank = {
       var decodedResults = JSON.parse(localStorage.getItem('resultArray'));
       console.log('decodedResults: ', decodedResults);
       for (var k = 0; k < productRank.resultsArray.length; k++) {
-        productRank.init[k] = decodedResults[k] + this.resultsArray[k];
-        productRank.init.push(parseInt(productRank.cummulativeResults[k]) + parseInt(decodedResults[k]));
+        init[k] = decodedResults[k] + productRank.resultsArray[k];
+        //productRank.init.push(parseInt(productRank.cummulativeResults[k]) + parseInt(decodedResults[k]));
         console.log(productRank.cummulativeResults[k], (parseInt(productRank.cummulativeResults[k]), parseInt(decodedResults[k])));
       }
-      console.log('cummulative results: ', productRank.init);
-      var codedResults =  JSON.stringify(productRank.init);
+      console.log('cummulative results: ', init);
+      var codedResults =  JSON.stringify(init);
       localStorage.setItem('resultArray', codedResults);
       myChart.update();
     }
