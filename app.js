@@ -98,7 +98,7 @@ var productRank = {
 
   onClick: function(event) {
     event.preventDefault();
-    if(productRank.clickCount < 5) {
+    if(productRank.clickCount < 25) {
       console.log('event target id:', event.target.id);
       productRank.clickCount++;
       console.log('productRank.clickCount: ', productRank.clickCount);
@@ -142,7 +142,7 @@ var myChart = new Chart(ctx, {
     labels: allProducts,
     datasets: [{
       label: '# of Votes',
-      data: productRank.resultsArray,
+      data: init,
     }]
   },
   options: {
