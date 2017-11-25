@@ -2,6 +2,10 @@
 
 var allProducts = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can','wine-glass'];
 var path = './img/';
+var init = new Array(20).fill(0); //[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+if(localStorage.getItem('resultArray') === null) {
+  localStorage.setItem('resultArray', JSON.stringify(init));
+}
 
 var productObjArray = [];
 function Product(name, path) {
@@ -26,6 +30,7 @@ var productRank = {
   resultsEl: document.getElementById('results'),
   resultsArray: [],
   productNames:[], // TODO: see the pattern here, and what you need to fill in?
+  cummulativeResults: [],
   clickCount: 0,
 
   myImage: new Image(200, 200),
@@ -83,7 +88,7 @@ var productRank = {
     this.resultsEl.appendChild(newULEl);
     for (var l = 0; l < allProducts.length; l++) {
       var liEl = document.createElement('li');
-      liEl.innerHTML = productObjArray[l].totalCount + '   =    ' + productObjArray[l].name + '.';
+      liEl.innerHTML = productObjArray[l].name + ' got ' + productObjArray[l].totalCount + ' votes.';
       this.resultsArray.push(productObjArray[l].totalCount);
       newULEl.appendChild(liEl);
     }
@@ -91,10 +96,9 @@ var productRank = {
     return this.resultsArray;
   },
 
-
   onClick: function(event) {
     event.preventDefault();
-    if(productRank.clickCount < 25) {
+    if(productRank.clickCount < 5) {
       console.log('event target id:', event.target.id);
       productRank.clickCount++;
       console.log('productRank.clickCount: ', productRank.clickCount);
@@ -102,8 +106,8 @@ var productRank = {
       for(var i in allProducts) {
         if(event.target.id === productObjArray[i].name){
           productObjArray[i].totalCount++;
-          console.log('productObjArray[i].name: ', productObjArray[i].name);
-          console.log('productObjArray[i].totalCount: ',productObjArray[i].totalCount);
+          //console.log('productObjArray[i].name: ', productObjArray[i].name);
+          //console.log('productObjArray[i].totalCount: ',productObjArray[i].totalCount);
         }
       }
       productRank.displayImages();
@@ -112,6 +116,16 @@ var productRank = {
       productRank.imagesEl1.removeEventListener('click', productRank.onClick);
       productRank.imagesEl2.removeEventListener('click', productRank.onClick);
       productRank.displayResults();
+      var decodedResults = JSON.parse(localStorage.getItem('resultArray'));
+      console.log('decodedResults: ', decodedResults);
+      for (var k = 0; k < productRank.resultsArray.length; k++) {
+        init[k] = decodedResults[k] + productRank.resultsArray[k];
+        //productRank.init.push(parseInt(productRank.cummulativeResults[k]) + parseInt(decodedResults[k]));
+        console.log(productRank.cummulativeResults[k], (parseInt(productRank.cummulativeResults[k]), parseInt(decodedResults[k])));
+      }
+      console.log('cummulative results: ', init);
+      var codedResults =  JSON.stringify(init);
+      localStorage.setItem('resultArray', codedResults);
       myChart.update();
     }
   },
@@ -129,23 +143,6 @@ var myChart = new Chart(ctx, {
     datasets: [{
       label: '# of Votes',
       data: productRank.resultsArray,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgba(255,99,132,1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-      ],
-      borderWidth: 1
     }]
   },
   options: {

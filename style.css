@@ -1,8 +1,14 @@
+body{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+header{
+  text-align: center;
+}
+
 #photos{
-  display: inline;
-  border-style: solid;
-  border-color: red;
-  margin: 0;
+  margin-left:275px;
 }
 
 main div{
@@ -29,5 +35,5 @@ main div{
 }
 
 #results{
-  columns: 4 auto;
+  columns: 3 auto;
 }
