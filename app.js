@@ -1,7 +1,7 @@
 'use strict';
 
 var allProducts = ['bag','banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'scissors', 'shark', 'sweep', 'tauntaun', 'unicorn', 'usb', 'water-can','wine-glass'];
-var path = '/Users/rlkman/codefellows/201/bus-mall/img/';
+var path = './img/';
 
 var productObjArray = [];
 function Product(name, path) {
