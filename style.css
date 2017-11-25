@@ -11,6 +11,10 @@ header{
   margin-left:275px;
 }
 
+#mychart{
+  width: 300px;
+}
+
 main div{
   display: inline-block;
 }
