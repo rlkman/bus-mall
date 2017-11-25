@@ -98,7 +98,7 @@ var productRank = {
 
   onClick: function(event) {
     event.preventDefault();
-    if(productRank.clickCount < 5) {
+    if(productRank.clickCount < 25) {
       console.log('event target id:', event.target.id);
       productRank.clickCount++;
       console.log('productRank.clickCount: ', productRank.clickCount);
