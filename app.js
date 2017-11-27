@@ -141,8 +141,8 @@ var myChart = new Chart(ctx, {
   data: {
     labels: allProducts,
     datasets: [{
-      label: '# of Votes',
-      data: productRank.resultsArray,
+      label: '# Total Votes so far:',
+      data: init,
     }]
   },
   options: {

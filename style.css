@@ -8,15 +8,19 @@ header{
 }
 
 #photos{
-  margin-left:275px;
+  margin-left:280px;
 }
 
 #mychart{
-  width: 300px;
+  width: 250px;
 }
 
 main div{
   display: inline-block;
+}
+
+main div h3 {
+  text-align: center;
 }
 #images img{
   display: inline-block;
